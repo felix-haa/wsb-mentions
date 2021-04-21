@@ -2,9 +2,6 @@
 Get data from custom reddit scraper and visualize in chart
 
 ## To Do
-- [ ] get data from api
-- [ ] install recharts
-- [ ] stock ticker selector
 - [ ] update chart based on selected stock mentions data
 
 ## Tools
@@ -12,6 +9,7 @@ Get data from custom reddit scraper and visualize in chart
 - Next.js
 - Prettier
 - React
+- Recharts
 - Sass
 - Typescript
 
@@ -27,3 +25,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Done
 - [x] Setup Next.js project w/ ESLint, Prettier, Sass, Typescript
+- [x] get data from api
+- [x] install recharts
+- [x] stock ticker selector

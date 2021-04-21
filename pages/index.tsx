@@ -51,16 +51,12 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const firstRes = await fetch(
-    'https://subreddit-scraper.herokuapp.com/words/?page=1'
-  )
+  const firstRes = await fetch(`${process.env.API_URL}words/?page=1`)
   const firstJson = await firstRes.json()
   const words: WordInterface[] = []
   const pages = Math.ceil(firstJson.count / 10)
   for (let i = 1; i <= pages; i++) {
-    const res = await fetch(
-      `https://subreddit-scraper.herokuapp.com/words/?page=${i}`
-    )
+    const res = await fetch(`${process.env.API_URL}words/?page=${i}`)
     const json = await res.json()
     json.results.forEach((result: WordInterface) => {
       words.push(result)

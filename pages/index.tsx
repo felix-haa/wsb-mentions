@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/no-onchange */
+import { ChangeEvent, useState } from 'react'
 
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
@@ -9,8 +9,12 @@ import Chart from '../components/Chart'
 import { ChartDataInterface, WordInterface } from '../lib/types'
 
 const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
-  const data: ChartDataInterface[] = words[0].mentions
-    .slice()
+  const [stock, setStock] = useState('aapl')
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const data: ChartDataInterface[] = words
+    .find((element) => element.word === stock)!
+    .mentions.slice()
     .reverse()
     .map((element) => {
       return {
@@ -22,9 +26,8 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
       }
     })
 
-  const handleChange = (): void => {
-    console.log('selected')
-    // TODO setState to selected ticker name
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>): void => {
+    setStock(e.currentTarget.value)
   }
 
   return (
@@ -38,6 +41,7 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
         <div className={styles.wrapper}>
           <h1>WSB Mentions</h1>
 
+          {/* eslint-disable-next-line jsx-a11y/no-onchange */}
           <select onChange={handleChange} className={styles.selector}>
             {words.map((word, index) => (
               <option key={index} value={word.word}>

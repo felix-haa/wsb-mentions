@@ -2,7 +2,8 @@
 Get data from custom reddit scraper and visualize in chart
 
 ## To Do
-- [ ] update chart based on selected stock mentions data
+- [ ] use bar chart
+- [ ] show dates without mentions in chart
 
 ## Tools
 - ESLint
@@ -28,3 +29,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] get data from api
 - [x] install recharts
 - [x] stock ticker selector
+- [x] update chart based on selected stock mentions data

@@ -14,7 +14,10 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
     .reverse()
     .map((element) => {
       return {
-        name: element.created_at,
+        name: new Date(element.created_at).toLocaleDateString('en-US', {
+          day: 'numeric',
+          month: 'short',
+        }),
         [words[0].word]: element.count,
       }
     })
@@ -25,28 +28,28 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>WSB Mentions</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1>WSB Mentions</h1>
+        <div className={styles.wrapper}>
+          <h1>WSB Mentions</h1>
 
-        <select onChange={handleChange}>
-          {words.map((word, index) => (
-            <option key={index} value={word.word}>
-              {word.word}
-            </option>
-          ))}
-        </select>
+          <select onChange={handleChange} className={styles.selector}>
+            {words.map((word, index) => (
+              <option key={index} value={word.word}>
+                {word.word}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <Chart data={data} dataKey={words[0].word} />
+        <Chart data={data} dataKey={words[0].word} className={styles.chart} />
       </main>
-
-      <footer className={styles.footer}></footer>
-    </div>
+    </>
   )
 }
 

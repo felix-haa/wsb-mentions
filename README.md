@@ -1,5 +1,5 @@
 # Wallstreetbets Mentions
-Get data from custom reddit scraper and visualize in chart
+The backend counts how many times a ticker symbol was mentioned on r/wallstreetbets and r/mauerstrassenwetten in a day. It uses Reddit's official API to analyze headlines of posts and Tesseract's optical character recognition to gather text from images (to analyze memes). This frontend visualizes the results with Recharts.
 
 ## To Do
 - [ ] use bar chart

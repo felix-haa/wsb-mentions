@@ -2,9 +2,10 @@
 The backend counts how many times a ticker symbol was mentioned on r/wallstreetbets and r/mauerstrassenwetten in a day. It uses Reddit's official API to analyze headlines of posts and Tesseract's optical character recognition to gather text from images (to analyze memes). This frontend visualizes the results with Recharts.
 
 ## To Do
-- [ ] show dates without mentions in chart
+
 
 ## Tools
+- Date-Fns
 - ESLint
 - Next.js
 - Prettier
@@ -30,3 +31,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] stock ticker selector
 - [x] update chart based on selected stock mentions data
 - [x] use bar chart
+- [x] show dates without mentions in chart

@@ -3,26 +3,41 @@ import { ChangeEvent, useState } from 'react'
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
+import { isSameDay, sub } from 'date-fns'
+
 import styles from '../styles/Home.module.sass'
 
 import Chart from '../components/Chart'
-import { ChartDataInterface, WordInterface } from '../lib/types'
+import { WordInterface } from '../lib/types'
 
 const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
   const [stock, setStock] = useState('aapl')
 
+  let range: Date[] = []
+  for (let i = 0; i < 30; i++) {
+    range = [...range, sub(new Date(), { days: i })]
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const data: ChartDataInterface[] = words
-    .find((element) => element.word === stock)!
-    .mentions.slice()
+  const word: WordInterface = words.find((element) => element.word === stock)!
+
+  const getCount = (word: WordInterface, day: Date): number => {
+    const mention = word.mentions.find((mention) =>
+      isSameDay(new Date(mention.created_at), day)
+    )
+    return mention === undefined ? 0 : mention.count
+  }
+
+  const data = range
+    .slice()
     .reverse()
-    .map((element) => {
+    .map((day) => {
       return {
-        name: new Date(element.created_at).toLocaleDateString('en-US', {
+        name: day.toLocaleDateString('en-US', {
           day: 'numeric',
           month: 'short',
         }),
-        [stock]: element.count,
+        [stock]: getCount(word, day),
       }
     })
 

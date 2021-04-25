@@ -22,7 +22,7 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
           day: 'numeric',
           month: 'short',
         }),
-        [words[0].word]: element.count,
+        [stock]: element.count,
       }
     })
 
@@ -51,7 +51,7 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
           </select>
         </div>
 
-        <Chart data={data} dataKey={words[0].word} className={styles.chart} />
+        <Chart data={data} dataKey={stock} className={styles.chart} />
       </main>
     </>
   )

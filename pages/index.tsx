@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
@@ -12,10 +12,11 @@ import { WordInterface } from '../lib/types'
 
 const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
   const [stock, setStock] = useState('aapl')
+  const [range, setRange] = useState(30)
 
-  let range: Date[] = []
-  for (let i = 0; i < 30; i++) {
-    range = [...range, sub(new Date(), { days: i })]
+  let dates: Date[] = []
+  for (let i = 0; i < range; i++) {
+    dates = [...dates, sub(new Date(), { days: i })]
   }
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -28,7 +29,7 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
     return mention === undefined ? 0 : mention.count
   }
 
-  const data = range
+  const data = dates
     .slice()
     .reverse()
     .map((day) => {
@@ -40,10 +41,6 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
         [stock]: getCount(word, day),
       }
     })
-
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setStock(e.currentTarget.value)
-  }
 
   return (
     <>
@@ -57,13 +54,22 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
           <h1>WSB Mentions</h1>
 
           {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-          <select onChange={handleChange} className={styles.selector}>
+          <select
+            onChange={(e) => setStock(e.currentTarget.value)}
+            className={styles.stockSelector}
+          >
             {words.map((word, index) => (
               <option key={index} value={word.word}>
                 {word.word}
               </option>
             ))}
           </select>
+
+          <div className={styles.rangeSelector}>
+            <button onClick={() => setRange(30)}>30d</button>
+            <button onClick={() => setRange(60)}>60d</button>
+            <button onClick={() => setRange(90)}>90d</button>
+          </div>
         </div>
 
         <Chart data={data} dataKey={stock} className={styles.chart} />

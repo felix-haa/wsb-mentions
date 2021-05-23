@@ -53,7 +53,6 @@ const Home = ({ words }: { words: WordInterface[] }): JSX.Element => {
         <div className={styles.wrapper}>
           <h1>WSB Mentions</h1>
 
-          {/* eslint-disable-next-line jsx-a11y/no-onchange */}
           <select
             onChange={(e) => setStock(e.currentTarget.value)}
             className={styles.stockSelector}
